@@ -1,3 +1,4 @@
+use nalgebra::{base, Matrix, Matrix3};
 use std::fs::File;
 use std::io::{self, BufRead};
 
@@ -114,4 +115,29 @@ pub fn day24_part1() -> i128 {
     }
 
     num_intersections
+}
+
+pub fn day24_part2() -> i128 {
+    let file = File::open("day-24.txt").expect("file");
+    let reader = io::BufReader::new(file);
+    let hailstones: Vec<Hail> = reader
+        .lines()
+        .map(|line| parse_from_str(line.unwrap().as_str()))
+        .collect();
+    let mut coordinates = 0;
+    let mut i = 0;
+    let mut j = 0;
+    let mut k = 0;
+    let mut mtx = Matrix3::new(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    while i < hailstones.len() {
+        while j < hailstones.len() {
+            while k < hailstones.len() {
+                k += 1;
+            }
+            j += 1;
+        }
+        i += 1;
+    }
+
+    coordinates
 }
