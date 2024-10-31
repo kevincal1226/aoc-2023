@@ -1,4 +1,3 @@
-use std::ascii::AsciiExt;
 use std::fs::File;
 use std::io::{self, BufRead};
 
