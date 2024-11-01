@@ -1,4 +1,4 @@
-use nalgebra::{base, Matrix, Matrix3};
+use nalgebra::base;
 use std::fs::File;
 use std::io::{self, BufRead};
 
@@ -117,27 +117,42 @@ pub fn day24_part1() -> i128 {
     num_intersections
 }
 
+fn has_intersection(p1: i128, v1: i128, p2: i128, v2: i128) -> bool {
+    false
+}
+
 pub fn day24_part2() -> i128 {
     let file = File::open("day-24.txt").expect("file");
     let reader = io::BufReader::new(file);
-    let hailstones: Vec<Hail> = reader
+    let mut hailstones: Vec<Hail> = reader
         .lines()
         .map(|line| parse_from_str(line.unwrap().as_str()))
         .collect();
-    let mut coordinates = 0;
-    let mut i = 0;
-    let mut j = 0;
-    let mut k = 0;
-    let mut mtx = Matrix3::new(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    while i < hailstones.len() {
-        while j < hailstones.len() {
-            while k < hailstones.len() {
-                k += 1;
-            }
-            j += 1;
-        }
-        i += 1;
-    }
 
-    coordinates
+    let position_0 = nalgebra::Matrix3x1::new(hailstones[0].px, hailstones[0].py, hailstones[0].pz);
+
+    let position_1 = nalgebra::Matrix3x1::new(hailstones[1].px, hailstones[1].py, hailstones[1].pz);
+    let position_2 = nalgebra::Matrix3x1::new(hailstones[2].px, hailstones[2].py, hailstones[2].pz);
+
+    let velocity_0 = nalgebra::Matrix3x1::new(hailstones[0].vx, hailstones[0].vy, hailstones[0].vz);
+    let velocity_1 = nalgebra::Matrix3x1::new(hailstones[1].vx, hailstones[1].vy, hailstones[1].vz);
+    let velocity_2 = nalgebra::Matrix3x1::new(hailstones[2].vx, hailstones[2].vy, hailstones[2].vz);
+
+    let p1_col_mtx = position_1 - position_0;
+    let p2_col_mtx = position_2 - position_0;
+    let v1_col_mtx = velocity_1 - velocity_0;
+    let v2_col_mtx = velocity_2 - velocity_0;
+
+    let t1 = -((p1_col_mtx.cross(&p2_col_mtx)).dot(&v2_col_mtx))
+        / ((v1_col_mtx.cross(&p2_col_mtx)).dot(&v2_col_mtx));
+
+    let t2 = -((p1_col_mtx.cross(&p2_col_mtx)).dot(&v1_col_mtx))
+        / ((p1_col_mtx.cross(&v2_col_mtx)).dot(&v1_col_mtx));
+
+    let c1 = position_1 + velocity_1 * t1;
+    let c2 = position_2 + velocity_2 * t2;
+    let v = (c2 - c1) / (t2 - t1);
+    let p = c1 - v * t1;
+    println!("{}", p);
+    p.sum() as i128
 }
