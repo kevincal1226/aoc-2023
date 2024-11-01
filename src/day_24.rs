@@ -117,14 +117,10 @@ pub fn day24_part1() -> i128 {
     num_intersections
 }
 
-fn has_intersection(p1: i128, v1: i128, p2: i128, v2: i128) -> bool {
-    false
-}
-
 pub fn day24_part2() -> i128 {
     let file = File::open("day-24.txt").expect("file");
     let reader = io::BufReader::new(file);
-    let mut hailstones: Vec<Hail> = reader
+    let hailstones: Vec<Hail> = reader
         .lines()
         .map(|line| parse_from_str(line.unwrap().as_str()))
         .collect();
@@ -154,5 +150,5 @@ pub fn day24_part2() -> i128 {
     let v = (c2 - c1) / (t2 - t1);
     let p = c1 - v * t1;
     println!("{}", p);
-    p.sum() as i128
+    p.sum()
 }
