@@ -25,7 +25,7 @@ fn set_union(vertex_a: &mut String, vertex_b: &mut String, reps: &mut HashMap<St
     reps.entry(key).and_modify(|s| *s = value);
 }
 
-fn count_comps(edges: &BTreeSet<(String, String)>, reps: &mut HashMap<String, String>) -> usize {
+fn count_comps(edges: &HashSet<(String, String)>, reps: &mut HashMap<String, String>) -> usize {
     for (i, j) in edges {
         set_union(&mut i.clone(), &mut j.clone(), reps);
     }
@@ -38,7 +38,7 @@ fn count_comps(edges: &BTreeSet<(String, String)>, reps: &mut HashMap<String, St
 pub fn day25_part1() -> u64 {
     let file = File::open("day-25.txt").expect("file");
     let reader = io::BufReader::new(file);
-    let mut edges: BTreeSet<(String, String)> = BTreeSet::new();
+    let mut edges: HashSet<(String, String)> = HashSet::new();
     let mut reps: HashMap<String, String> = HashMap::new();
     reader.lines().for_each(|line| {
         let uline = line.unwrap();
