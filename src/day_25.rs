@@ -1,7 +1,7 @@
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::fs::File;
 use std::io::{self, BufRead};
-use std::net::ToSocketAddrs;
+use std::ops::Deref;
 
 fn set_find(vertex: &mut String, reps: &mut HashMap<String, String>) -> String {
     let mut start = vertex.clone();
@@ -31,7 +31,7 @@ fn count_comps(edges: &HashSet<(String, String)>, reps: &mut HashMap<String, Str
     }
     reps.clone()
         .iter()
-        .filter(|(rep, _)| set_find(&mut (**rep).clone(), reps) == **rep)
+        .filter(|(rep, _)| set_find(&mut (*rep).clone(), reps) == **rep)
         .count()
 }
 
