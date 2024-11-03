@@ -37,7 +37,7 @@ fn dfs_1(
 }
 
 fn dfs_2(
-    grid: &Vec<Vec<char>>,
+    grid: &Vec<Vec<bool>>,
     discovered: &mut HashSet<(usize, usize)>,
     curr: u64,
     best: &mut u64,
@@ -49,13 +49,13 @@ fn dfs_2(
         return;
     }
 
-    if grid[row][col] == '#' || !discovered.insert((row, col)) {
+    if !grid[row][col] || !discovered.insert((row, col)) {
         return;
     }
-    dfs_2(grid, &mut discovered.clone(), curr + 1, best, row + 1, col);
-    dfs_2(grid, &mut discovered.clone(), curr + 1, best, row - 1, col);
-    dfs_2(grid, &mut discovered.clone(), curr + 1, best, row, col + 1);
-    dfs_2(grid, &mut discovered.clone(), curr + 1, best, row, col - 1);
+    dfs_2(grid, discovered, curr + 1, best, row + 1, col);
+    dfs_2(grid, discovered, curr + 1, best, row - 1, col);
+    dfs_2(grid, discovered, curr + 1, best, row, col + 1);
+    dfs_2(grid, discovered, curr + 1, best, row, col - 1);
 }
 
 pub fn day23_part1() -> u64 {
@@ -91,16 +91,25 @@ impl Vertex {
     }
 }
 
+fn get_num_connections(grid: &Vec<Vec<bool>>, row: usize, col: usize) -> usize {
+    grid[row - 1][col] as usize
+        + grid[row + 1][col] as usize
+        + grid[row][col - 1] as usize
+        + grid[row][col + 1] as usize
+}
+
+fn merge_edges(grid: &Vec<Vec<bool>>, adjlist: &mut Vec<Vec<Vertex>>, row: usize, col: usize) {}
+
 pub fn day23_part2() -> u64 {
     let file = File::open("day-23.txt").unwrap();
     let reader = io::BufReader::new(file);
-    let mut grid: Vec<Vec<char>> = reader
+    let mut grid: Vec<Vec<bool>> = reader
         .lines()
-        .map(|f| f.unwrap().chars().collect())
+        .map(|f| f.unwrap().chars().map(|e| e != '#').collect())
         .collect();
 
-    grid.insert(0, vec!['#'; grid[0].len()]);
-    grid.push(vec!['#'; grid[0].len()]);
+    grid.insert(0, vec![false; grid[0].len()]);
+    grid.push(vec![false; grid[0].len()]);
 
     let mut adjlist: Vec<Vec<Vertex>> = vec![Vec::new(); grid.len() * grid[0].len()];
 
