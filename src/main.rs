@@ -1,5 +1,6 @@
 mod day_1;
 mod day_2;
+mod day_21;
 mod day_23;
 mod day_24;
 mod day_25;
@@ -15,6 +16,6 @@ fn main() {
     //println!("Day 23 output: {}", day_23::day23_part2());
     //println!("Day 4 output: {}", day_4::day4_part1_cursed());
     //println!("Day 4 output: {}", day_4::day4_part2());
-    println!("Day 5 output: {}", day_5::day5_part1());
-    println!("Day 5 output: {}", day_5::day5_part2());
+    println!("Day 21 output: {}", day_21::day21_part1());
+    println!("Day 21 output: {}", day_21::day21_part2());
 }
