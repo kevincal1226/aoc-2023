@@ -16,6 +16,6 @@ fn main() {
     //println!("Day 23 output: {}", day_23::day23_part2());
     //println!("Day 4 output: {}", day_4::day4_part1_cursed());
     //println!("Day 4 output: {}", day_4::day4_part2());
-    println!("Day 21 output: {}", day_21::day21_part1());
-    println!("Day 21 output: {}", day_21::day21_part2());
+    println!("Day 21 part 1 output: {}", day_21::day21_part1());
+    println!("Day 21 part 2 output: {}", day_21::day21_part2());
 }
