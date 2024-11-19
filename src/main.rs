@@ -10,6 +10,7 @@ mod day_5;
 mod day_6;
 mod day_7;
 mod day_8;
+mod day_9;
 
 fn main() {
     //println!("Day 1 output: {}", day_1::day1());
@@ -25,6 +26,8 @@ fn main() {
     //println!("Day 6 part 2; output: {}", day_6::part_2());
     //println!("Day 7 part 1 output: {}", day_7::part_1());
     //println!("Day 7 part 2 output: {}", day_7::part_2());
-    println!("Day 8 part 1 output: {}", day_8::part_1());
-    println!("Day 8 part 2 output: {}", day_8::part_2());
+    //println!("Day 8 part 1 output: {}", day_8::part_1());
+    //println!("Day 8 part 2 output: {}", day_8::part_2());
+    println!("Day 9 part 1 output: {}", day_9::part_1());
+    println!("Day 9 part 2 output: {}", day_9::part_2());
 }
