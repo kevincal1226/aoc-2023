@@ -27,7 +27,7 @@ pub fn day4_part1() -> u64 {
 }
 
 pub fn day4_part1_cursed() -> u64 {
-    let input: Vec<Vec<Vec<u64>>> = BufReader::new(File::open("day-4.txt").unwrap())
+    BufReader::new(File::open("day-4.txt").unwrap())
         .lines()
         .map(|line| line.unwrap())
         .map(|unwrapped| unwrapped.split(':').map(|s| s.to_string()).collect())
@@ -42,10 +42,9 @@ pub fn day4_part1_cursed() -> u64 {
                 })
                 .collect()
         })
-        .collect();
-    input
-        .iter()
-        .map(|v| 2u64.pow(v[1].iter().map(|e| v[0].contains(e) as u32).sum::<u32>() - 1))
+        .map(|v: Vec<Vec<u64>>| {
+            2u64.pow(v[1].iter().map(|e| v[0].contains(e) as u32).sum::<u32>() - 1)
+        })
         .sum()
 }
 
